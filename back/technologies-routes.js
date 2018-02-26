@@ -3,6 +3,7 @@ const router = express.Router();
 const RateLimit = require('express-rate-limit');
 const mongoose = require('mongoose');
 const jsonexport = require('jsonexport');
+const { verifyMiddleware } = require('./auth');
 
 // const stringCapitalizeName = require('string-capitalize-name');
 
@@ -46,7 +47,7 @@ const mapNewsToNewWoId = (tech) => {
 router.get('/_csv_', (req, res) => {
   Technology.find({})
     .then((result) => {
-      jsonexport(result.map(mapNewsToNewWoId), (err, data)=>{
+      jsonexport(result.map(mapNewsToNewWoId), (err, data) => {
         res.send(data);
       })
     })
@@ -77,7 +78,7 @@ router.get('/', (req, res) => {
 });
 
 // CREATE
-router.post('/', postLimiter, (req, res) => {
+router.post('/', postLimiter, verifyMiddleware, (req, res) => {
 
   // Validate the age
   // let age = sanitizeAge(req.body.age);
@@ -98,7 +99,7 @@ router.post('/', postLimiter, (req, res) => {
     quadrant,
     pole,
     description,
-    isNews : isNew,
+    isNews: isNew,
   });
 
   newTechnologie.save()
@@ -142,7 +143,7 @@ router.post('/', postLimiter, (req, res) => {
 });
 
 // UPDATE
-router.put('/:id', (req, res) => {
+router.put('/:id', verifyMiddleware, (req, res) => {
 
   // Validate the age
   // let age = sanitizeAge(req.body.age);
@@ -156,7 +157,7 @@ router.put('/:id', (req, res) => {
     quadrant,
     pole,
     description,
-    isNews : isNew
+    isNews: isNew
   };
 
   Technology.findOneAndUpdate({ _id: req.params.id }, updatedTechnologie, { runValidators: true, context: 'query' })
@@ -207,7 +208,7 @@ router.put('/:id', (req, res) => {
 });
 
 // DELETE
-router.delete('/:id', (req, res) => {
+router.delete('/:id', verifyMiddleware, (req, res) => {
 
   Technology.findByIdAndRemove(req.params.id)
     .then((result) => {
@@ -228,6 +229,27 @@ router.delete('/:id', (req, res) => {
     .catch((err) => {
       res.status(404).json({ success: false, msg: 'Nothing to delete.' });
     });
+});
+
+router.post('/csv', verifyMiddleware, (req, res) => {
+  // todo customize overwrite
+  Technology.remove({}, () => {
+    let technologiesP = req.body.csv.map((o) => {
+      return (new Technology(o)).save();
+    });
+    Promise.all(technologiesP).then((saved) => {
+      //todo optim
+      Technology.find({})
+        .then((result) => {
+          res.json(result.map(mapNewsToNew));
+        })
+        .catch((err) => {
+          res.status(500).json({ success: false, msg: `Something went wrong. ${err}` });
+        });
+    }).catch((err) => {
+      res.status(500).json({ success: false, msg: `Something went wrong. ${err}` });
+    });
+  });
 });
 
 module.exports = router;
