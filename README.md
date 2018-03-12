@@ -34,11 +34,17 @@ npm run serve # it runs on port 8000
 ## Develop
 
 
+```bash
+npm install
+npm run build
+npm run dev-server
+```
+
 ## Contribute
 
+Simply create a pull request ...
 
 ## Built With
-
 
 
 ## Authors
