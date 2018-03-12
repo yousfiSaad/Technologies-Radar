@@ -1,14 +1,47 @@
 
-## Run it
+# Technologies Radar
+This projects help you illustrate technologies in a graph form
 
-```
-docker build -t radar/myawesomeradar .
-docker run -p 80:8000 radar/myawesomeradar
+## Getting Started
+
+1. Clone the project
+
+2. Run it usin docker compose
+
+```bash
+docker-compose up # it runs on port 80
 ```
 
-## feedbacks
+## Prerequisites
 
-All the feedbacks are saver in a txt file, which you can download from the following url
+Two options are available to run the project
+
+1. docker
+
+You need to install docker first
+
+2. Node js
+
+it requires nodejs 8,
+
+```bash
+npm install
+npm run build
+npm run serve # it runs on port 8000
 ```
-localhost/api/feedbacks
-```
+
+
+## Develop
+
+
+## Contribute
+
+
+## Built With
+
+
+
+## Authors
+
+
+## License
