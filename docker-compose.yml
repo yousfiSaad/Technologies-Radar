@@ -20,7 +20,7 @@ services:
     ports:
       - 80:8000
     # tty: true
-    command: "node back/server.js"
+    command: ./wait-for.sh mongo:27017 -- node back/server.js
 
   db:
     image: mongo
