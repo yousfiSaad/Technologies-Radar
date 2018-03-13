@@ -1,10 +1,7 @@
 require('./stylesheets/base.scss');
 require('./images/tech-radar-201611-landing-page-wide.png');
-// require('./images/tw-logo.png');
-require('./images/favicon.ico');
 require('./images/radar_legend.png');
 require('./stylesheets/feedback.scss');
-require('./images/SQLI_logo.png');
 
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -13,7 +10,7 @@ import { CSVContent, plotRadar, hideBlips} from './util/factory';
 import filtering from './util/filtering';
 import axios from 'axios';
 import Radar from './Radar';
-import Feedbacks from './Feedbacks';
+import Feedbacks from './FeedBacks';
 import RHeader from './RHeader';
 import { map, uniqBy } from 'lodash';
 
