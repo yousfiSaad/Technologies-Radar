@@ -20,11 +20,11 @@ COPY ./data ./data
 COPY ./package.json .
 COPY ./yarn.lock .
 COPY ./back ./back
+COPY ./wait-for-it.sh ./wait-for-it.sh
+RUN chmod +x ./wait-for-it.sh
 
 RUN yarn install --production=true
 
 EXPOSE 80
 
-# CMD [ "bash" ]
 CMD [ "node", "back/server.js" ]
-
