@@ -21,7 +21,8 @@ const ExceptionMessages = require('./exceptionMessages');
 
 const plotRadar = function (blips) {
     var blipsObjs = [];
-    var rings = _.map(_.uniqBy(blips, 'ring'), 'ring');
+    // var rings = _.map(_.uniqBy(blips, 'ring'), 'ring');
+    var rings = [ "adopt", "trial", "assess", "hold" ];
     var ringMap = {};
     var maxRings = 4;
 
