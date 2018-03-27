@@ -143,7 +143,12 @@ const Radar = function (size, radar) {
   }
 
   function calculateBlipCoordinates(chance, minRadius, maxRadius, startAngle, endAngle) {
-    const emptyAngle = 4;
+    let emptyAngle = 4;
+    const diffAngles = startAngle - endAngle;
+
+    if(diffAngles <= 2* emptyAngle){
+      emptyAngle = diffAngles / 2.1;
+    }
 
     minRadius = Math.max(minRadius, 20);
     
