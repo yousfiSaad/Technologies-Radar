@@ -30,6 +30,16 @@ body {
   margin: 0;
 }
 
+.blip-new-indicator {
+  background-color: rgba(30,188,205,.3);
+  font-size: small;
+  border-color: rgba(30,188,205,.4);
+  border: solid 0.5px rgba(30,188,205,.4);
+  padding: .3px 4px .3px 4px;
+  border-radius: 2px;
+  margin-left: 4px;
+}
+
 @media print {
 
   body, article {
