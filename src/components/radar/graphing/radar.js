@@ -288,8 +288,13 @@ const Radar = function (size, radar) {
             blipItemDescription.on('click', function () {
               d3.event.stopPropagation();
             });
+            //  verifying if a pie is selected
+            if(d3.select('header > .home-link').style("visibility") === 'visible'){
+              d3.event.stopPropagation();
+            }
           };
 
+          group.on('click', clickBlip);
           blipListItem.on('click', clickBlip);
         }
       });
