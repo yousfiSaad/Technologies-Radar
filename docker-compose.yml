@@ -31,7 +31,7 @@ services:
           - mongo
 
     volumes:
-      - $PWD/mongo-data:/data/db
+      - $PWD/mongo-data-prod:/data/db
       
 
 networks:
