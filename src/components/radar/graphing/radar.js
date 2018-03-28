@@ -67,6 +67,43 @@ const Radar = function (size, radar) {
     }
   }
 
+
+  function drawLegend(order) {
+
+    var triangleKey = "New or moved";
+    var circleKey = "No change";
+
+    var container = d3.select('svg').append('g')
+      .attr('class', 'legend legend'+"-"+order);
+
+    var x = 20;
+    var y = 40;
+
+    d3.select('.legend')
+      .attr('class', 'legend legend-'+order)
+      .transition()
+      .style('visibility', 'visible');
+
+    triangleLegend(x, y, container);
+
+    container
+      .append('text')
+      .attr('x', x + 15)
+      .attr('y', y + 5)
+      .attr('font-size', '0.8em')
+      .text(triangleKey);
+
+
+    circleLegend(x, y + 20, container);
+
+    container
+      .append('text')
+      .attr('x', x + 15)
+      .attr('y', y + 25)
+      .attr('font-size', '0.8em')
+      .text(circleKey);
+  }
+
   const PADANGLE = toRadian(3);
 
   function plotQuadrant(rings, quadrant) {
@@ -536,7 +573,7 @@ const Radar = function (size, radar) {
 
 
     if (d3.select('.legend.legend-' + order).empty()) {
-      // drawLegend(order);
+      drawLegend(order);
     }
   }
   self.selectQuadrant = selectQuadrant;
@@ -595,6 +632,8 @@ const Radar = function (size, radar) {
 
     plotLine();
     plotTexts();
+
+    // drawLegend();
     
     // plotRadarFooter();
 
