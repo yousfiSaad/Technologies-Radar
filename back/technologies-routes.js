@@ -43,9 +43,13 @@ const mapNewsToNewWoId = (tech) => {
   };
 };
 
+const findAllSort = function () {
+  return Technology.find({}).sort("name")
+}
+
 // READ (ALL)
 router.get('/_csv_', (req, res) => {
-  Technology.find({})
+  findAllSort()
     .then((result) => {
       jsonexport(result.map(mapNewsToNewWoId), (err, data) => {
         res.send(data);
@@ -58,7 +62,7 @@ router.get('/_csv_', (req, res) => {
 
 // READ (ALL)
 router.get('/downloadCSV', (req, res) => {
-  Technology.find({})
+  findAllSort()
     .then((result) => {
       jsonexport(result.map(mapNewsToNewWoId), (err, data) => {
         res.setHeader('Content-disposition', `attachment; filename=Radar-backup-${new Date().toLocaleString()}.csv`);
@@ -85,7 +89,7 @@ router.get('/:id', (req, res) => {
 
 // READ (ALL)
 router.get('/', (req, res) => {
-  Technology.find({})
+  findAllSort()
     .then((result) => {
       res.json(result.map(mapNewsToNew));
     })
@@ -256,7 +260,7 @@ router.post('/csv', verifyMiddleware, (req, res) => {
     });
     Promise.all(technologiesP).then((saved) => {
       //todo optim
-      Technology.find({})
+      findAllSort()
         .then((result) => {
           res.json(result.map(mapNewsToNew));
         })

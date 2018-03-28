@@ -12,6 +12,7 @@ coverage/
 /dist-backoffice
 /dist
 /mongo-data
+/mongo-data-prod
 
 .idea/
 .DS_Store

@@ -1,11 +1,6 @@
 const d3 = require('d3');
 const Tabletop = require('tabletop');
-const _ = {
-    map: require('lodash/map'),
-    uniqBy: require('lodash/uniqBy'),
-    capitalize: require('lodash/capitalize'),
-    each: require('lodash/each')
-};
+const _ = require("lodash");
 
 const InputSanitizer = require('./inputSanitizer');
 const Radar = require('../models/radar');
@@ -56,6 +51,13 @@ const plotRadar = function (blips) {
     return { blipsObjs, radarIn };
 }
 
+const SORTINGRINGS = {
+    'adopt': 0,
+    'trial': 1,
+    'assess': 2,
+    'hold': 3
+};
+
 const CSVContent = function (fileContent) {
     var data = d3.csvParse(fileContent);
     var columnNames = data['columns'];
@@ -64,7 +66,8 @@ const CSVContent = function (fileContent) {
     contentValidator.verifyContent();
     contentValidator.verifyHeaders();
     var blips = _.map(data, new InputSanitizer().sanitize);
-    return blips;
+    // we need a stable sorting here
+    return _.sortBy(blips, (bli) => SORTINGRINGS[bli.ring]);
 }
 
 const hideIf = (indexes) => (getId) => (e) => {
