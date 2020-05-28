@@ -6,7 +6,7 @@ This projects help you illustrate technologies in a graph form
 
 1. Clone the project
 
-2. Run it usin docker compose
+2. Run it using docker compose
 
 ```bash
 docker-compose up # it runs on port 80
